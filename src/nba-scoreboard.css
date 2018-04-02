@@ -15,7 +15,27 @@ and open the template in the editor.
   background: #dddddd;
   width: 300px;
   padding-right: 15px;
-  padding-left: 15px; }
+  padding-left: 15px;
+  transition: right 0.25s linear; }
+  #nba-scoreboard.closed {
+    right: -330px; }
+    #nba-scoreboard.closed #handle > span {
+      display: inline-block;
+      transform: rotateZ(0deg); }
+  #nba-scoreboard #handle {
+    position: absolute;
+    top: 20px;
+    right: 328px;
+    width: 33px;
+    font-size: 36px;
+    background: inherit;
+    cursor: pointer;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px; }
+    #nba-scoreboard #handle > span {
+      display: inline-block;
+      transform: rotateZ(180deg);
+      transition: all 0.25s linear; }
   #nba-scoreboard .scoreCard {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -29,12 +49,24 @@ and open the template in the editor.
       background: red;
       padding: 5px;
       text-align: right; }
+      #nba-scoreboard .scoreCard .header .broadcast {
+        float: left; }
     #nba-scoreboard .scoreCard .body {
       padding-left: 15px;
       padding-top: 20px;
       padding-bottom: 20px; }
+      #nba-scoreboard .scoreCard .body .team.won .score:last-child:after {
+        content: '\25C0';
+        font-size: 10px;
+        position: absolute;
+        float: right;
+        right: -5px;
+        color: red; }
+      #nba-scoreboard .scoreCard .body .team.lost {
+        opacity: 0.5; }
       #nba-scoreboard .scoreCard .body .team .score {
-        padding: 0 7px; }
+        position: relative;
+        padding: 0 8px; }
     #nba-scoreboard .scoreCard .footer {
       font-size: 10px;
       color: white;

@@ -18,28 +18,32 @@ class NBAScoreboard extends Component{
     constructor(props){
         super(props);        
         this.state = {
+            open: true,
             games: games            
         };
-    }
-    
-    componentWillMount(){
-        console.log('....going to mount');        
         
+        this.toggle = this.toggle.bind(this);
     }
     
-    componentDidMount(){
-        console.log('....mounted!');
+    toggle(){
+        this.setState({
+           open: !this.state.open 
+        });
     }
     
     render(){
-        return(
-            <div id="nba-scoreboard">
-            <h1>NBA Scoreboard</h1>
-            {
-                this.state.games.map((game, i) => (
-                    <NBAScoreCard key={i} game={game}/>
-                ))
-            }
+        let open = (!this.state.open && 'closed') || '';        
+        return(            
+            <div id="nba-scoreboard" className={open}>
+                <div id="handle" onClick={this.toggle}>
+                <span> &lt; </span>
+                </div>     
+                <h1>NBA Scoreboard</h1>
+                {
+                    this.state.games.map((game, i) => (
+                        <NBAScoreCard key={i} game={game}/>
+                    ))
+                }
             </div>
         )
     }

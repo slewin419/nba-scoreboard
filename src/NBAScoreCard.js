@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  * @date Apr 1, 2018
  * @name Shaun
@@ -31,6 +26,28 @@ class NBAScoreCard extends Component {
         });        
     }
     
+    /**
+     * Return csv of broadcasters [national, home, away]
+     * @param {object} broadcast
+     * @returns {String}
+     */
+    getBroadcasters(broadcast){        
+        let {broadcast: {broadcasters: {national, hTeam, vTeam}}} = broadcast;        
+        
+        let stations = [national[0], hTeam[0], vTeam[0]].filter(station => {
+            if(!station){
+                return false;
+            }
+            return true;
+        }).map(station => (station.shortName)).join(', ');
+        
+        return stations;
+    }
+    
+    /**
+     * Return the winner of the game
+     * @returns {vTeam.triCode|hTeam.triCode}
+     */
     getWinner() {       
         let {hTeam, vTeam} = this.state.game;
         let homeTeamScore = parseInt(hTeam.score, 10);
@@ -39,19 +56,22 @@ class NBAScoreCard extends Component {
         return winner;
     }
 
-    render() {
-        console.log('render');
+    render() {        
         let { 
             hTeam: homeTeam,
-            vTeam: awayTeam, 
-            arena, 
+            vTeam: awayTeam,
+            arena,
+            watch: broadcast,
             nugget: headLine,
-            startTimeEastern: startTime,            
+            startTimeEastern: startTime,
         } = this.state.game;
-        //console.log(this.state);
+        
         return(
-                <div className="scoreCard">                     
-                    <div className="header">{startTime}</div>
+                <div className="scoreCard">
+                    <div className="header">
+                        <span className="broadcast">{this.getBroadcasters(broadcast)}</span>
+                        {startTime}
+                    </div>
                     <table className="body">
                         <tbody>
                             <tr className={"awayTeam team " + (this.state.winner === awayTeam.triCode ? 'won' : 'lost')}>
@@ -82,7 +102,7 @@ class NBAScoreCard extends Component {
                         </div>                        
                     </div>                    
                 </div>
-                )
+        )
     }
 }
 
