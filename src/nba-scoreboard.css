@@ -55,6 +55,8 @@ and open the template in the editor.
       padding-left: 15px;
       padding-top: 20px;
       padding-bottom: 20px; }
+      #nba-scoreboard .scoreCard .body thead {
+        font-size: 12px; }
       #nba-scoreboard .scoreCard .body .team.won .score:last-child:after {
         content: '\25C0';
         font-size: 10px;

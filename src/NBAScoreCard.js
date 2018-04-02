@@ -73,6 +73,16 @@ class NBAScoreCard extends Component {
                         {startTime}
                     </div>
                     <table className="body">
+                        <thead>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>Final</td>
+                            </tr>                            
+                        </thead>
                         <tbody>
                             <tr className={"awayTeam team " + (this.state.winner === awayTeam.triCode ? 'won' : 'lost')}>
                                 <td>{awayTeam.triCode}</td>
