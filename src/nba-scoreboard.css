@@ -12,8 +12,35 @@ and open the template in the editor.
   top: 0;
   bottom: 0;
   right: 0;
-  background: gray;
-  width: 300px; }
+  background: #dddddd;
+  width: 300px;
+  padding-right: 15px;
+  padding-left: 15px; }
   #nba-scoreboard .scoreCard {
     margin-top: 20px;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-weight: bold;
+    background: white; }
+    #nba-scoreboard .scoreCard .header {
+      font-size: 10px;
+      color: white;
+      background: red;
+      padding: 5px;
+      text-align: right; }
+    #nba-scoreboard .scoreCard .body {
+      padding-left: 15px;
+      padding-top: 20px;
+      padding-bottom: 20px; }
+      #nba-scoreboard .scoreCard .body .team .score {
+        padding: 0 7px; }
+    #nba-scoreboard .scoreCard .footer {
+      font-size: 10px;
+      color: white;
+      background: blue;
+      padding: 5px;
+      text-align: left; }
+      #nba-scoreboard .scoreCard .footer .venue {
+        margin-top: 10px;
+        text-align: right; }

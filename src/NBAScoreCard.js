@@ -15,53 +15,72 @@ import './nba-scoreboard.css';
 class NBAScoreCard extends Component {
     constructor(props) {
         super(props);
+        
+        //Didn't need to add the props to state, unless this was a live data feed.
+        //Then the state is needed to update the UI when the state is updated.
         this.state = {
-            game: this.props.game
+            game: this.props.game,
+            winner: ''
         };
     }
     
-    componentWillMount() {
-        console.log('....going to mount');
-
+    componentWillMount(){
+        let winner = this.getWinner();
+        this.setState({
+            winner: winner
+        });        
+    }
+    
+    getWinner() {       
+        let {hTeam, vTeam} = this.state.game;
+        let homeTeamScore = parseInt(hTeam.score, 10);
+        let awayTeamScore = parseInt(vTeam.score, 10);        
+        let winner = (homeTeamScore > awayTeamScore) ? hTeam.triCode : vTeam.triCode;
+        return winner;
     }
 
-    componentDidMount() {
-        console.log('....mounted!');
-    }
-
-    render() {        
+    render() {
+        console.log('render');
         let { 
             hTeam: homeTeam,
             vTeam: awayTeam, 
             arena, 
             nugget: headLine,
-            startTimeEastern: startTime
+            startTimeEastern: startTime,            
         } = this.state.game;
+        //console.log(this.state);
         return(
-                <div className="scoreCard"> 
-                    <span className="headline">{headLine.text}</span>
-                    <span className="time">{startTime}</span>
-                    <div className="awayTeam">
-                        <span>{awayTeam.triCode}</span>
-                        {
-                            awayTeam.linescore.map((line,i) => (
-                                <span key={i}>{line.score}</span>
-                            ))
-                        }
-                        <span>{awayTeam.score}</span>
-                    </div>
-                    <div className="homeTeam">
-                        <span>{homeTeam.triCode}</span>
-                        {
-                            homeTeam.linescore.map((line,i) => (
-                                <span key={i}>{line.score}</span>
-                            ))
-                        }
-                        <span>{homeTeam.score}</span>
-                    </div>
-                    <div className="venue">
-                        {arena.name} - {arena.city}, {arena.stateAbbr}
-                    </div>
+                <div className="scoreCard">                     
+                    <div className="header">{startTime}</div>
+                    <table className="body">
+                        <tbody>
+                            <tr className={"awayTeam team " + (this.state.winner === awayTeam.triCode ? 'won' : 'lost')}>
+                                <td>{awayTeam.triCode}</td>
+                                {
+                                    awayTeam.linescore.map((line,i) => (
+                                        <td className="score" key={i}>{line.score}</td>
+                                    ))
+                                }
+                                <td className="score">{awayTeam.score}</td>
+                            </tr>
+                            <tr className={"homeTeam team " + (this.state.winner === homeTeam.triCode ? 'won' : 'lost')}>
+                                <td>{homeTeam.triCode}</td>
+                                {
+                                    homeTeam.linescore.map((line,i) => (
+                                        <td className="score" key={i}>{line.score}</td>
+                                    ))
+                                }
+                                <td className="score">{homeTeam.score}</td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                    <div className="footer">
+                        <span className="headline">{headLine.text}</span>
+                        <div className="venue">
+                            {arena.name} - {arena.city}, {arena.stateAbbr}
+                            <span className="attendance">{}</span>
+                        </div>                        
+                    </div>                    
                 </div>
                 )
     }
